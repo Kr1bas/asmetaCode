@@ -1,0 +1,25 @@
+{
+  "name": "asmetavsce",
+  "displayName": "asmetaVSCE",
+  "description": "Asmeta Visual Studio Code Extension",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "asmeta",
+      "aliases": ["asmeta", "asmeta"],
+      "extensions": [".asm"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "asmeta",
+      "scopeName": "source.asm",
+      "path": "./syntaxes/asmeta.tmLanguage.json"
+    }]
+  }
+}

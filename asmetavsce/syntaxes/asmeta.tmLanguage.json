@@ -1,0 +1,101 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "asmeta",
+	"fileTypes": ["asm"],
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		}
+	],
+	"repository": {
+		"comment":{
+			"name": "comment",
+			"patterns": [{
+				"include": "#inline.comment.asmeta"
+			},{
+				"include": "#block.comment.asmeta"
+			}]
+		},
+		"inline_comments":{
+			"name":"inline.comment.asmeta",
+			"match": "\\b//.*"
+		},
+		"block_comments":{
+			"name":"block.comment.asmeta",
+			"begin": "\b/*",
+			"end": "*/\b"
+		},
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.asmeta",
+				"match": "\\b(CTLSPEC|asm|module|asyncr|import|export|signature|init|default|agent|invariant|over|definitions|function|static|dynamic|derived|monitored|controlled|shared|out|domain|anydomain|basic|abstract|enum|subsetof|Prod|Seq|Powerset|Bag|Map|Rule|true|false|undef|if|then|else|endif|switch|endswitch|case|otherwise|endcase|let|endlet|exist|unique|with|forall|skip|rule|macro|turbo|main|par|endpar|choose|do|ifnone|extend|seq|endseq|iterate|enditerate|local|try|catch|while|whilerec|in|i|\\=|\\<|\\<\\=|\\>|\\>\\=|\\!\\=|\\+|\\-|\\*|\\/|\\^)\\b"
+			}]
+		},
+		"numbers":{
+			"name":"any.number.asmeta",
+			"patterns": [
+				{
+					"name": "natural.number.asmeta",
+					"match": "\\b\\d+n\\b"
+				},{
+					"name": "real.number.asmeta",
+					"match": "\\b\\d+\\.\\d+\\b"
+				},{
+					"name": "complex.number.asmeta",
+					"match": "\\b(\\+|\\-)?\\ (\\d+(\\.\\d+)?)?\\ (\\+|\\-)?\\ i\\ (\\d+(\\.\\d+)?)?\\b"
+				}
+			]
+		},
+		"ids":{
+			"name": "any.id.asmeta",
+			"patterns": [{
+				"name": "variable.id.asmeta",
+				"match": "\\b\\$[a-zA-Z]\\w*\\b"
+			},{
+				"name": "enum.id.asmeta",
+				"match": "\\b[A-Z]{2}[A-Z0-9_]*\\b"
+			},{
+				"name": "domain.id.asmeta",
+				"match": "\\b[A-Z]\\w*\\b"
+			},{
+				"name": "rule.id.asmeta",
+				"match": "\\br_\\w+\\b"
+			},{
+				"name": "invariant.id.asmeta",
+				"match": "\\binv_\\w+\\b"
+			},{
+				"name": "function.id.asmeta",
+				"match": "\\b[a-z]\\w*\\b"
+			},{
+				"name": "module.id.asmeta",
+				"match": "\\b([a-zA-Z0-9]|\\.|\\\\|/)(\\w|\\.|\\\\|/|:)*\\b"
+			}]
+		},
+		"strings": {
+			"name": "string.literal.asmeta",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.asmeta",
+					"match": "\\\\."
+				}
+			]
+		},
+		"chars":{
+			"name": "char.literal.asmeta",
+			"begin": "'",
+			"end": "'",
+			"patterns": [
+				{
+					"name": "constant.character.escape.asmeta",
+					"match": "\\\\."
+				}
+			]
+		}
+	},
+	"scopeName": "source.asm"
+}
