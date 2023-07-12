@@ -173,7 +173,7 @@
 		},
 		"constant-time":{
 			"name":"constant.language.time.asmeta",
-			"match": "\\b(seconds|minutes|hours|days|weeks|years)\\b"
+			"match": "\\b(NANOSEC|MILLISEC|SEC|MIN|HOUR)\\b"
 		},
 		"constant-uppercase": {
             "match": "\\b([A-Z0-9_]+)\\b",
@@ -192,15 +192,15 @@
         },
 		"type-domain":{
 			"name":"support.type.domain.asmeta",
-			"match": "\\b((dynamic)? abstract|enum|dynamic|basic)? domain\\b"
+			"match": "\\b?((dynamic)? abstract|enum|dynamic|basic)? ?domain\\b"
 		},
 		"type-primitive":{
 			"name":"support.type.primitive.asmeta",
-			"match": "\\b(Complex|Real|Integer|Natural|Agent|Boolean|Char|String)\\b"
+			"match": "\\b(Complex|Real|Integer|Natural|Agent|Boolean|Char|String|Timer)\\b"
 		},
 		"type-composite":{
 			"name":"support.type.composite.asmeta",
-			"match": "\\b(Prod|Powerset|Seq|subsetof)\\b"
+			"match": "\\b(Prod|Powerset|Seq|subsetof|Bag|Map)\\b"
 		},
 		"type-idk":{
 			"name":"support.type.idk.asmeta",
