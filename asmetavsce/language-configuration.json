@@ -18,7 +18,14 @@
         { "open": "(", "close": ")", "notIn": ["string"] },
         { "open": "'", "close": "'", "notIn": ["string"] },
         { "open": "\"", "close": "\"", "notIn": ["string"] },
-        { "open": "/*", "close": " */", "notIn": ["string"] }
+        { "open": "/*", "close": " */", "notIn": ["string"] },
+        { "open": "par ", "close": "endpar", "notIn": ["string"]},
+        { "open": "seq ", "close": "endseq", "notIn": ["string"]},
+        { "open": "if ", "close": " endif", "notIn": ["string"]},
+        { "open": "switch ", "close": " endswitch", "notIn": ["string"]},
+        { "open": "let ", "close": " endlet", "notIn": ["string"]},
+        { "open": "invariant ", "close": "over", "notIn": ["string"]}
+
     ],
     // symbols that can be used to surround a selection
     "surroundingPairs": [

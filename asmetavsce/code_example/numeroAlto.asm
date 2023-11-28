@@ -34,6 +34,7 @@ definitions:
 			endif
 		else
 			if balance(pc) = 0 then
+				/* */
 				USER
 			endif
 		endif
@@ -72,9 +73,8 @@ definitions:
 					endpar
 				endswitch
 		endlet
-
+	seq
 	
-
 	// INVARIANTS
 	invariant inv_total_colin over balance:  (balance(pc) + balance(user) = 10)
 		
