@@ -15,8 +15,10 @@ function activate(context) {
     let disposable = vscode.commands.registerCommand('asmetaS.run', (file) => {
         // The code you place here will be executed every time your command is executed
         // Display a message box to the user
-        vscode.window.showInformationMessage('Hello World from asmetaVSCE!');
-        vscode.window.createTerminal("Asmeta", "java", ["-jar", `${file}`]);
+        vscode.window.showInformationMessage(`${file}`);
+        const terminal = vscode.window.createTerminal();
+        terminal.show();
+        terminal.sendText(`java -jar \$ASMETA_HOME/AsmetaS.jar "${String(file).replace('/\ /gi', "\\\ ").replace('/%20/gi', "\\\ ").split("://")[1]}"`);
     });
     context.subscriptions.push(disposable);
 }
