@@ -2,10 +2,12 @@
   "name": "asmetavsce",
   "displayName": "asmetaVSCE",
   "description": "Asmeta Visual Studio Code Extension",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.80.0"
   },
+  "icon": "./asmeta.png",
+  "repository": {"url": "https://github.com/Kr1bas/asmetaCode.git"},
   "main": "./out/extension.js",
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -54,7 +56,27 @@
     "commands": [
       {
         "command": "asmetaS.run",
-        "title": "Run Simulator"
+        "title": "Run Simulator",
+        "icon":{
+          "light":"./icons/play-fill.svg",
+          "dark": "./icons/play.svg"
+        }
+      },
+      {
+        "command": "asmetaLc.run",
+        "title": "Run parser",
+        "icon":{
+          "dark": "./icons/check-lg.svg",
+          "light": "./icons/check-lg.svg"
+        }
+      },
+      {
+        "command": "asmetaSMV.run",
+        "title": "Run Model Checker",
+        "icon":{
+          "dark": "./icons/file-earmark-break-fill.svg",
+          "light": "./icons/file-earmark-break.svg"
+        }
       }
     ],
     "menus": {
@@ -62,6 +84,16 @@
         {
           "when": "resourceLangId == asmeta",
           "command": "asmetaS.run",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == asmeta",
+          "command": "asmetaLc.run",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == asmeta",
+          "command": "asmetaSMV.run",
           "group": "navigation"
         }
       ]

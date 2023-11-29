@@ -1,0 +1,18 @@
+{
+	"name": "asmetalsp-client",
+	"description": "asmeta Language Server client",
+	"author": "Kribas",
+	"license": "GPL-3.0",
+	"version": "0.0.1",
+	"publisher": "Kribas",
+	"engines": {
+		"vscode": "^1.75.0"
+	},
+	"dependencies": {
+		"vscode-languageclient": "^8.1.0"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.75.1",
+		"@vscode/test-electron": "^2.2.3"
+	}
+}
