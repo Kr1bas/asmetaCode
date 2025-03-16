@@ -1,0 +1,79 @@
+--file /Users/simonevalentini/Documents/REPOs/asmetaCode/code_example/numeroAlto.smv
+-- options: flatten? true
+MODULE main
+	VAR
+		balance_PC: {-2147483647, 0, 1, 10, 2, 3, 4, 5, 6, 7, 8, 9}; --controlled
+		balance_USER: {-2147483647, 0, 1, 10, 2, 3, 4, 5, 6, 7, 8, 9}; --controlled
+		userChoice: {-2147483647, 1, 2, 3, 4, 5}; --monitored
+		winner: {COMPUTER, TIE, USER, WINNERDOMAIN_UNDEF}; --controlled
+		--declaration of choose variables
+		var_$pcc01_0: 1..5;
+		var_$pcc01_1: 1..5;
+		var_$pcc01_2: 1..5;
+		var_$pcc01_3: 1..5;
+		var_$pcc01_4: 1..5;
+	DEFINE
+		finalWinner :=
+			case
+				((balance_PC = 0) & !(balance_USER = 0)): USER;
+				((balance_PC = 0) & (balance_USER = 0)): TIE;
+				((balance_USER = 0) & !(balance_PC = 0)): COMPUTER;
+				TRUE: WINNERDOMAIN_UNDEF;
+			esac;
+		roundWinner_1_1 := TIE;
+		roundWinner_1_2 := COMPUTER;
+		roundWinner_1_3 := COMPUTER;
+		roundWinner_1_4 := COMPUTER;
+		roundWinner_1_5 := COMPUTER;
+		roundWinner_2_1 := USER;
+		roundWinner_2_2 := TIE;
+		roundWinner_2_3 := COMPUTER;
+		roundWinner_2_4 := COMPUTER;
+		roundWinner_2_5 := COMPUTER;
+		roundWinner_3_1 := USER;
+		roundWinner_3_2 := USER;
+		roundWinner_3_3 := TIE;
+		roundWinner_3_4 := COMPUTER;
+		roundWinner_3_5 := COMPUTER;
+		roundWinner_4_1 := USER;
+		roundWinner_4_2 := USER;
+		roundWinner_4_3 := USER;
+		roundWinner_4_4 := TIE;
+		roundWinner_4_5 := COMPUTER;
+		roundWinner_5_1 := USER;
+		roundWinner_5_2 := USER;
+		roundWinner_5_3 := USER;
+		roundWinner_5_4 := USER;
+		roundWinner_5_5 := TIE;
+	CONSTANTS USER, PC, PLAYER_UNDEF, WINNERDOMAIN_UNDEF, COMPUTER, TIE, USER;
+	ASSIGN
+		init(balance_PC) := 5;
+		init(balance_USER) := 5;
+		init(winner) := WINNERDOMAIN_UNDEF;
+		next(balance_PC) :=
+			case
+				(((var_$pcc01_4 = 5) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 4))) | (((var_$pcc01_3 = 5) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 2))) | (((var_$pcc01_3 = 4) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 2))) | (((var_$pcc01_3 = 3) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 2))) | (((var_$pcc01_2 = 5) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 3))) | ((((var_$pcc01_0 = 5) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 1))) | (((var_$pcc01_0 = 4) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 1))) | (((!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 1)) & (var_$pcc01_0 = 2)) | ((var_$pcc01_0 = 3) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 1)))))) | ((var_$pcc01_2 = 4) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 3))))))))) & (balance_PC + 1) in {-2147483647, 0, 1, 10, 2, 3, 4, 5, 6, 7, 8, 9}: (balance_PC + 1);
+				((((!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 4)) & (var_$pcc01_4 = 2)) | (((!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 4)) & (var_$pcc01_4 = 1)) | (((((var_$pcc01_2 = 1) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 3))) | (((var_$pcc01_1 = 4) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 5))) | (((!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 5)) & (var_$pcc01_1 = 3)) | (((!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 5)) & (var_$pcc01_1 = 2)) | ((!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 5)) & (var_$pcc01_1 = 1)))))) | ((var_$pcc01_2 = 2) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 3)))) | ((var_$pcc01_3 = 1) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 2)))))) | ((var_$pcc01_4 = 3) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 4)))) & (balance_PC - 1) in {-2147483647, 0, 1, 10, 2, 3, 4, 5, 6, 7, 8, 9}: (balance_PC - 1);
+				TRUE: balance_PC;
+			esac;
+		next(balance_USER) :=
+			case
+				(((var_$pcc01_4 = 5) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 4))) | (((var_$pcc01_3 = 5) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 2))) | (((var_$pcc01_3 = 4) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 2))) | (((var_$pcc01_3 = 3) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 2))) | (((var_$pcc01_2 = 5) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 3))) | ((((var_$pcc01_0 = 5) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 1))) | (((var_$pcc01_0 = 4) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 1))) | (((!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 1)) & (var_$pcc01_0 = 2)) | ((var_$pcc01_0 = 3) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 1)))))) | ((var_$pcc01_2 = 4) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 3))))))))) & (balance_USER - 1) in {-2147483647, 0, 1, 10, 2, 3, 4, 5, 6, 7, 8, 9}: (balance_USER - 1);
+				((((!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 4)) & (var_$pcc01_4 = 2)) | (((!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 4)) & (var_$pcc01_4 = 1)) | (((((var_$pcc01_2 = 1) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 3))) | (((var_$pcc01_1 = 4) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 5))) | (((!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 5)) & (var_$pcc01_1 = 3)) | (((!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 5)) & (var_$pcc01_1 = 2)) | ((!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 5)) & (var_$pcc01_1 = 1)))))) | ((var_$pcc01_2 = 2) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 3)))) | ((var_$pcc01_3 = 1) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 2)))))) | ((var_$pcc01_4 = 3) & (!((balance_PC = 0) | (balance_USER = 0)) & (userChoice = 4)))) & (balance_USER + 1) in {-2147483647, 0, 1, 10, 2, 3, 4, 5, 6, 7, 8, 9}: (balance_USER + 1);
+				TRUE: balance_USER;
+			esac;
+		next(winner) :=
+			case
+				((balance_PC = 0) | (balance_USER = 0)): finalWinner;
+				TRUE: winner;
+			esac;
+	INVAR	((var_$pcc01_0 = 3) | (var_$pcc01_0 = 4) | (var_$pcc01_0 = 5) | (var_$pcc01_0 = 1) | (var_$pcc01_0 = 2));
+	INVAR	((var_$pcc01_1 = 5) | (var_$pcc01_1 = 4) | (var_$pcc01_1 = 3) | (var_$pcc01_1 = 2) | (var_$pcc01_1 = 1));
+	INVAR	((var_$pcc01_2 = 4) | (var_$pcc01_2 = 3) | (var_$pcc01_2 = 2) | (var_$pcc01_2 = 1) | (var_$pcc01_2 = 5));
+	INVAR	((var_$pcc01_3 = 4) | (var_$pcc01_3 = 5) | (var_$pcc01_3 = 2) | (var_$pcc01_3 = 3) | (var_$pcc01_3 = 1));
+	INVAR	((var_$pcc01_4 = 4) | (var_$pcc01_4 = 3) | (var_$pcc01_4 = 5) | (var_$pcc01_4 = 2) | (var_$pcc01_4 = 1));
+--CTL properties
+CTLSPEC NAME ctl0 := AG(((balance_USER + balance_PC) = 10));
+CTLSPEC NAME ctl1 := EF(AG((balance_PC > 1)));
+--AsmetaL invariants
+CTLSPEC	AG(((balance_PC + balance_USER) = 10));

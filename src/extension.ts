@@ -10,7 +10,7 @@ import {
 let client: LanguageClient;
 
 // Main class in the server jar
-const main: string = 'org.eclipse.xtext.ide.server.ServerLauncher';
+const main: string = 'org.asmeta.xt.ide.server.ServerLauncher&';
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -18,14 +18,13 @@ export function activate(context: vscode.ExtensionContext) {
     const classPath: string = path.join(__dirname,'../src/org.asmeta.xt.ide-1.0.0-SNAPSHOT-ls.jar');
     console.log("path : " + classPath)
     // add-opens flag needed to bypass an error caused by reflective accesses in XText generated code
-    const args: string[] = ['-cp', classPath, '--add-opens', 'java.base/java.lang=ALL-UNNAMED'];
-
-    const debugOptions = { execArgv: ['-Xdebug', '-Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n,quiet=y'] };
-
+    const args: string[] = ['-Djava.awt.headless=true','-jar', classPath];
+    
     const serverOptions: ServerOptions = {
         command: executable,
         args: [...args, main],
     }
+    
 
     const clientOptions: LanguageClientOptions = {
         documentSelector: [{ scheme: 'file', language: 'asmeta' }]
