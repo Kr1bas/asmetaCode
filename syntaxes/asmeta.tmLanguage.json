@@ -1,0 +1,237 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "asmeta",
+	"fileTypes": ["asm"],
+	"patterns": [
+		{
+			"include": "#keywords"
+		},{
+			"include": "#string"
+		},{
+			"include": "#comment"
+		},{
+			"include": "#number"
+		},{
+			"include": "#operator"
+		},{
+			"include": "#constant"
+		},{
+			"include": "#type-primitive"
+		}
+	],
+	"repository": {
+		"comment": {
+            "patterns": [
+                {
+                    "include": "#comment-line"
+                },
+                {
+                    "include": "#comment-block"
+                }
+            ]
+        },
+		"comment-line": {
+            "begin": "(?<!tp:)//",
+            "end": "$",
+            "name": "comment.line.asmeta",
+            "patterns": [
+                {
+                    "include": "#comment-todo"
+                }
+            ]
+        },
+		"comment-block": {
+            "begin": "/\\*",
+            "end": "\\*/",
+            "name": "comment.block.asmeta",
+            "patterns": [
+                {
+                    "include": "#comment-todo"
+                }
+            ]
+        },
+		"comment-todo": {
+			"match": "(?i)\\b(FIXME|TODO|CHANGED|XXX|IDEA|HACK|NOTE|REVIEW|NB|BUG|QUESTION|COMBAK|TEMP|SUPPRESS|LINT|\\w+-disable|\\w+-suppress)\\b(?-i)",
+			"name": "keyword.comment.todo.asmeta"
+		},
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.asmeta",
+				"match": "\\b(CTLSPEC|asm|module|asyncr|import|export|signature|init|default|agent|invariant|over|definitions|function|static|dynamic|derived|monitored|controlled|shared|out|domain|anydomain|basic|abstract|enum|subsetof|Prod|Seq|Powerset|Bag|Map|Rule|if|then|else|endif|switch|endswitch|case|otherwise|endcase|let|endlet|exist|unique|with|forall|skip|rule|macro|turbo|main|par|endpar|choose|do|ifnone|extend|seq|endseq|iterate|enditerate|local|try|catch|while|whilerec|in|i)\\b"
+			}]
+		},
+		"number":{
+			"patterns": [
+				{
+					"include": "#number-integer"
+				},{
+					"include": "#number-natural"
+				},{
+					"include": "#number-real"
+				},{
+					"include": "#number-complex"
+				}
+			]
+		},
+		"number-integer":{
+			"name":"constant.numeric.integer.asmeta",
+			"match": "\\b\\d+\\b"
+		},
+		"number-natural":{
+			"name": "constant.numeric.natural.asmeta",
+			"match": "\\b\\d+n\\b"
+		},
+		"number-real":{
+			"name": "constant.numeric.real.asmeta",
+			"match": "\\b\\d+\\.\\d+\\b"
+		},
+		"number-complex":{
+			"name": "constant.numeric.complex.asmeta",
+			"match": "\\b(\\+|\\-)?\\ (\\d+(\\.\\d+)?)?\\ (\\+|\\-)?\\ i\\ (\\d+(\\.\\d+)?)?\\b"
+		},
+		"string": {
+			"name": "string",
+			"patterns": [
+				{
+					"include": "#string-literal"
+				},{
+					"include": "#char-literal"
+				}
+			]
+		},
+		"string-literal":{
+			"patterns": [
+				{
+					"name": "string.quoted.double.asmeta",
+					"match": "\\\".*?\\\""
+				}
+			]
+		},
+		"char-literal":{
+			"patterns": [
+				{
+					"name": "string.quoted.single.asmeta",
+					"match": "\\'.?\\'"
+				}
+			]
+		},
+		"operator":{
+			"patterns": [
+				{
+					"include": "#operator-comparison"
+				},{
+					"include": "#operator-logic"
+				},{
+					"include": "#operator-arithmetic"
+				},{
+					"include": "#operator-mapping"
+				},{
+					"include": "#operator-assignment"
+				},{
+					"include": "#operator-ctl"
+				}
+			]
+		},
+		"operator-comparison":{
+			"name":"keyword.operator.comparison.asmeta",
+			"match": "(!?(?<!:)=|<=?|(?<!-)>=?)"	
+		},
+		"operator-logic":{
+			"name": "keyword.operator.logic.asmeta",
+			"match": "(?i)\\b(and|or|not|xor)\\b"
+		},
+		"operator-arithmetic":{
+			"name":"keyword.operator.arithmetic.asmeta",
+			"match": "(\\+|\\-|\\*|\\/|\\^)"
+		},
+		"operator-mapping":{
+			"name":"keyword.operator.mapping.asmeta",
+			"match": "->"
+		},
+		"operator-assignment":{
+			"name":"keyword.operator.assignment.asmeta",
+			"match": "(\\:=)"
+		},
+		"operator-ctl":{
+			"name":"TODO_IMPLEMENT",
+			"match": "TODO_IMPLEMENT"
+		},
+		"constant":{
+			"patterns": [
+				{
+					"include": "#constant-boolean"
+				},{
+					"include": "#constant-time"
+				},{
+					"include": "#constant-uppercase"
+				}
+			]
+		},
+		"constant-boolean":{
+			"name":"constant.language.boolean.asmeta",
+			"match": "\\b(true|false|undef)\\b"
+		},
+		"constant-time":{
+			"name":"constant.language.time.asmeta",
+			"match": "\\b(NANOSEC|MILLISEC|SEC|MIN|HOUR)\\b"
+		},
+		"constant-uppercase": {
+            "match": "\\b([A-Z0-9_]+)\\b",
+            "name": "constant.language.enum.asmeta"
+        },
+		"type": {
+            "patterns": [
+				{
+					"include": "#type-domain"
+				},{
+					"include": "#type-primitive"
+				},{
+					"include": "#type-composite"
+				}
+			]
+        },
+		"type-domain":{
+			"name":"support.type.domain.asmeta",
+			"match": "\\b?((dynamic)? abstract|enum|dynamic|basic)? ?domain\\b"
+		},
+		"type-primitive":{
+			"name":"support.type.primitive.asmeta",
+			"match": "\\b(Complex|Real|Integer|Natural|Agent|Boolean|Char|String|Timer)\\b"
+		},
+		"type-composite":{
+			"name":"support.type.composite.asmeta",
+			"match": "\\b(Prod|Powerset|Seq|subsetof|Bag|Map)\\b"
+		},
+		"type-idk":{
+			"name":"support.type.idk.asmeta",
+			"match": "IDK"
+		},
+
+		"ids":{
+			"name": "any.id.asmeta",
+			"patterns": [{
+				"name": "variable.id.asmeta",
+				"match": "\\b\\$[a-zA-Z]\\w*\\b"
+			},{
+				"name": "enum.id.asmeta",
+				"match": "\\b[A-Z]{2}[A-Z0-9_]*\\b"
+			},{
+				"name": "domain.id.asmeta",
+				"match": "\\b[A-Z]\\w*\\b"
+			},{
+				"name": "rule.id.asmeta",
+				"match": "\\br_\\w+\\b"
+			},{
+				"name": "invariant.id.asmeta",
+				"match": "\\binv_\\w+\\b"
+			},{
+				"name": "function.id.asmeta",
+				"match": "\\b[a-z]\\w*\\b"
+			},{
+				"name": "module.id.asmeta",
+				"match": "\\b([a-zA-Z0-9]|\\.|\\\\|/)(\\w|\\.|\\\\|/|:)*\\b"
+			}]
+		}
+	},
+	"scopeName": "source.asm"
+}

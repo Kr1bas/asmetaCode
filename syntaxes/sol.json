@@ -1,0 +1,542 @@
+{
+    "fileTypes": [
+        "sol"
+    ],
+	"name": "SoliditySec",
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "patterns": [
+        {
+            "include": "#natspec"
+        },
+        
+        
+        {
+            "include": "#control"
+        },
+        {
+            "include": "#constant"
+        },
+        
+        
+        {
+            "include": "#type"
+        },
+        {
+            "include": "#global"
+        },
+        {
+            "include": "#declaration"
+        },
+        {
+            "include": "#function-call"
+        },
+        {
+            "include": "#assembly"
+        },
+        {
+            "include": "#uncheckedBlock"
+        },
+        {
+            "include": "#punctuation"
+        }
+    ],
+    "repository": {
+        "natspec": {
+            "patterns": [
+                {
+                    "begin": "/\\*\\*",
+                    "end": "\\*/",
+                    "name": "comment.block.documentation.solidity",
+                    "patterns": [
+                        {
+                            "include": "#natspec-tags"
+                        }
+                    ]
+                },
+                {
+                    "begin": "///",
+                    "end": "$",
+                    "name": "comment.block.documentation.solidity",
+                    "patterns": [
+                        {
+                            "include": "#natspec-tags"
+                        }
+                    ]
+                }
+            ]
+        },
+        "natspec-tags": {
+            "patterns": [
+                { "include": "#comment-todo"},
+                {
+                    "include": "#natspec-tag-title"
+                },
+                {
+                    "include": "#natspec-tag-author"
+                },
+                {
+                    "include": "#natspec-tag-notice"
+                },
+                {
+                    "include": "#natspec-tag-dev"
+                },
+                {
+                    "include": "#natspec-tag-param"
+                },
+                {
+                    "include": "#natspec-tag-return"
+                }
+            ]
+        },
+        "natspec-tag-title": {
+            "match": "(@title)\\b",
+            "name": "storage.type.title.natspec"
+        },
+        "natspec-tag-author": {
+            "match": "(@author)\\b",
+            "name": "storage.type.author.natspec"
+        },
+        "natspec-tag-notice": {
+            "match": "(@notice)\\b",
+            "name": "storage.type.dev.natspec"
+        },
+        "natspec-tag-dev": {
+            "match": "(@dev)\\b",
+            "name": "storage.type.dev.natspec"
+        },
+        "natspec-tag-param": {
+            "match": "(@param)(\\s+([A-Za-z_]\\w*))?\\b",
+            "captures": {
+                "1": {
+                    "name": "storage.type.param.natspec"
+                },
+                "3": {
+                    "name": "variable.other.natspec"
+                }
+            }
+        },
+        "natspec-tag-return": {
+            "match": "(@return)\\b",
+            "name": "storage.type.return.natspec"
+        },
+       
+       
+        
+        
+        "control": {
+            "patterns": [
+                {
+                    "include": "#control-flow"
+                },
+                {
+                    "include": "#control-using"
+                },
+                {
+                    "include": "#control-import"
+                },
+                {
+                    "include": "#control-pragma"
+                },
+                {
+                    "include": "#control-underscore"
+                },
+                {
+                    "include": "#control-other"
+                }
+            ]
+        },
+        "control-flow": {
+            "match": "\\b(if|else|for|while|do|break|try|catch|continue|throw|returns?)\\b",
+            "name": "keyword.control.flow.solidity"
+        },
+        "control-using": {
+            "match": "\\b(using)\\b",
+            "name": "keyword.control.using.solidity"
+        },
+        "control-import": {
+            "match": "\\b(import)\\b",
+            "name": "keyword.control.import.solidity"
+        },
+        "control-pragma": {
+            "match": "\\b(pragma)(?:\\s+([A-Za-z_]\\w+)\\s+([^\\s]+))?\\b",
+            "captures": {
+                "1": {
+                    "name": "keyword.control.pragma.solidity"
+                },
+                "2": {
+                    "name": "entity.name.tag.pragma.solidity"
+                },
+                "3": {
+                    "name": "constant.other.pragma.solidity"
+                }
+            }
+        },
+        "control-underscore": {
+            "match": "\\b(_)\\b",
+            "name": "constant.other.underscore.solidity"
+        },
+        "control-other": {
+            "match": "\\b(new|delete|emit)\\b",
+            "name": "keyword.control.solidity"
+        },
+        
+        
+        
+
+        
+        "global": {
+            "patterns": [
+                {
+                    "include": "#global-variables"
+                },
+                {
+                    "include": "#global-functions"
+                }
+            ]
+        },
+        "global-variables": {
+            "patterns": [
+                
+                {
+                    "match": "\\b(this)\\b",
+                    "name": "variable.language.this.solidity"
+                },
+                {
+                    "match": "\\b(super)\\b",
+                    "name": "variable.language.super.solidity"
+                },
+                {
+                    "match": "\\b(abi)\\b",
+                    "name": "variable.language.builtin.abi.solidity"
+                },
+                {
+                    "match": "\\b(tx\\.origin|tx\\.gasprice|msg\\.data|msg\\.sig|msg\\.value)\\b",
+                    "name": "variable.language.transaction.security.solidity"
+                },
+                {
+                    "match": "\\b(msg\\.sender|msg|block|tx|now)\\b",
+                    "name": "variable.language.transaction.solidity"
+                }
+            ]
+        },
+        "global-functions": {
+            "patterns": [
+                {
+                    "match": "\\b(require|assert|revert)\\b",
+                    "name": "keyword.control.exceptions.solidity"
+                },
+                {
+                    "match": "\\b(selfdestruct|suicide)\\b",
+                    "name": "keyword.control.contract.solidity"
+                },
+                {
+                    "match": "\\b(addmod|mulmod|keccak256|sha256|sha3|ripemd160|ecrecover)\\b",
+                    "name": "support.function.math.solidity"
+                },
+                {
+                    "match": "\\b(blockhash|gasleft)\\b",
+                    "name": "variable.language.transaction.solidity"
+                },
+                {
+                    "match": "\\b(type)\\b",
+                    "name": "variable.language.type.solidity"
+                },
+                {
+                    "match": "\\b\\.(send|call|delegatecall|staticcall|callcode|creationCode|runtimeCode)\\b",
+                    "name": "support.function.transaction.security.solidity"
+                },
+                {
+                    "match": "\\b\\.(transfer)\\b",
+                    "name": "support.function.transaction.solidity"
+                }
+            ]
+        },
+        "declaration": {
+            "patterns": [
+                {
+                    "include": "#declaration-contract"
+                },
+                {
+                    "include": "#declaration-interface"
+                },
+                {
+                    "include": "#declaration-library"
+                },
+                {  "include": "#declaration-visibility"},
+                {
+                    "include": "#declaration-struct"
+                },
+                {
+                    "include": "#declaration-event"
+                },
+                {
+                    "include": "#declaration-enum"
+                },
+                {
+                    "include": "#declaration-function-fallback"
+                },
+                {
+                    "include": "#declaration-function-receive"
+                },
+                {
+                    "include": "#declaration-function"
+                },
+                
+                {
+                    "include": "#declaration-constructor"
+                },
+                {
+                    "include": "#declaration-modifier"
+                },
+                {
+                    "include": "#declaration-mapping"
+                }
+            ]
+        },
+        "declaration-contract": {
+            "patterns": [
+                {
+                    "match": "\\b(contract)(\\s+([A-Za-z_]\\w*))?\\b",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type.contract.solidity"
+                        },
+                        "3": {
+                            "name": "entity.name.type.contract.solidity"
+                        }
+                    }
+                },
+                {
+                    "match": "\\b(is)\\b",
+                    "name": "storage.modifier.is.solidity"
+                }
+            ]
+        },
+        "declaration-interface": {
+            "match": "\\b(interface)(\\s+([A-Za-z_]\\w*))?\\b",
+            "captures": {
+                "1": {
+                    "name": "storage.type.interface.solidity"
+                },
+                "3": {
+                    "name": "entity.name.type.interface.solidity"
+                }
+            }
+        },
+        "declaration-library": {
+            "match": "\\b(library)(\\s+([A-Za-z_]\\w*))?\\b",
+            "captures": {
+                "1": {
+                    "name": "storage.type.library.solidity"
+                },
+                "3": {
+                    "name": "entity.name.type.library.solidity"
+                }
+            }
+        },
+        "declaration-struct": {
+            "match": "\\b(struct)(\\s+([A-Za-z_]\\w*))?\\b",
+            "captures": {
+                "1": {
+                    "name": "storage.type.struct.solidity"
+                },
+                "3": {
+                    "name": "entity.name.type.struct.solidity"
+                }
+            }
+        },
+        "declaration-event": {
+            "match": "\\b(error|event)(\\s+([A-Za-z_]\\w*))?\\b",
+            "captures": {
+                "1": {
+                    "name": "storage.type.event.solidity"
+                },
+                "3": {
+                    "name": "entity.name.type.event.solidity"
+                }
+            }
+        },
+        "declaration-enum": {
+            "match": "\\b(enum)(\\s+([A-Za-z_]\\w*))?\\b",
+            "captures": {
+                "1": {
+                    "name": "storage.type.enum.solidity"
+                },
+                "3": {
+                    "name": "entity.name.type.enum.solidity"
+                }
+            }
+        },
+        "declaration-constructor": {
+            "begin": "\\b(constructor)\\s*\\b",
+            "beginCaptures": {
+                "1": {
+                    "name": "storage.type.constructor.solidity"
+                }
+            },
+            "end": "({)",
+            "endCaptures": {
+                "1": {
+                    "name": "punctuation.block.solidity"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#method-head"
+                }
+                
+            ]
+        },
+        "declaration-function-fallback": {
+            "match": "\\b(function|fallback)\\s*\\(\\s*\\)",
+            "name": "storage.type.function.fallback.solidity"
+        },
+        "declaration-function-receive": {
+            "match": "\\b(receive)\\s*\\(\\s*\\)",
+            "name": "storage.type.function.receive.solidity"
+        },
+        "declaration-function": {
+            "begin": "\\b(function)\\s+([A-Za-z_]\\w*)\\b",
+            "beginCaptures": {
+                "1": {
+                    "name": "storage.type.function.solidity"
+                },
+                "2": {
+                    "name": "entity.name.function.solidity"
+                }
+            },
+            "end": "({)",
+            "endCaptures": {
+                "1": {
+                    "name": "punctuation.block.solidity"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#method-head"
+                }
+                
+            ]
+        },
+        "declaration-modifier": {
+            "match": "\\b(modifier)(\\s+([A-Za-z_]\\w*))?\\b",
+            "captures": {
+                "1": {
+                    "name": "storage.type.modifier.solidity"
+                },
+                "3": {
+                    "name": "entity.name.function.solidity"
+                }
+            }
+        },
+        "declaration-visibility": {
+            "patterns": [
+                {
+                    "match": "\\b(private|internal|constant|immutable|pure|view|nonpayable|indexed)\\b",
+                    "name": "storage.type.modifier.keyword.solidity"
+                },
+                {
+                    "match": "\\b(public|external|payable|inherited|storage|memory|calldata)\\b",
+                    "name": "storage.type.modifier.keyword.extendedscope.solidity"
+                }
+            ]
+        },
+        "declaration-mapping": {
+            "match": "\\b(mapping)\\b",
+            "name": "storage.type.mapping.solidity"
+        },
+        "method-head": {
+            "patterns": [
+                {
+                    "include": "#punctuation"
+                },
+                {
+                    "include": "#comment"
+                },
+                {
+                    "include": "#control"
+                },
+                {
+                    "include": "#constant"
+                },
+                {
+                    "include": "#number"
+                },
+                {
+                    "include": "#string"
+                },
+                {
+                    "include": "#type"
+                },
+                {
+                    "include": "#global"
+                },
+                {
+                    "include": "#declaration"
+                },
+                {
+                    "include": "#modifier-call"
+                }
+            ]
+        },
+        "function-call": {
+            "match": "\\b([A-Za-z_]\\w*)\\s*\\(",
+            "captures": {
+                "1": {
+                    "name": "entity.name.function.solidity"
+                }
+            }
+        },
+        "modifier-call": {
+            "match": "\\b([A-Za-z_]\\w*)\\s*\\(",
+            "captures": {
+                "1": {
+                    "name": "entity.name.modifier.solidity"
+                }
+            }
+        },
+        "assembly": {
+            "patterns": [
+                {
+                    "match": "\\b(assembly)\\b",
+                    "name": "keyword.control.assembly.solidity"
+                },
+                {
+                    "match": "\\b(let)\\b",
+                    "name": "storage.type.assembly.solidity"
+                }
+            ]
+        },
+        "uncheckedBlock": {
+            "patterns": [
+                {
+                    "match": "\\b(unchecked)\\b",
+                    "name": "keyword.control.unchecked.solidity"
+                }
+            ]
+        },
+        "punctuation": {
+            "patterns": [
+                {
+                    "match": ";",
+                    "name": "punctuation.terminator.statement.solidity"
+                },
+                {
+                    "match": "\\.",
+                    "name": "punctuation.accessor.solidity"
+                },
+                {
+                    "match": ",",
+                    "name": "punctuation.separator.solidity"
+                },
+                {
+                    "match": "({|})",
+                    "name": "punctuation.block.solidity"
+                }
+            ]
+        }
+       
+    },
+    "scopeName": "source.solidity.security",
+    "uuid": "ad87d2cd-8575-4afe-984e-9421a3788933"
+}

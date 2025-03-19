@@ -1,0 +1,115 @@
+{
+  "name": "asmetavsce",
+  "displayName": "asmetaVSCE",
+  "description": "Asmeta Visual Studio Code Extension",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "icon": "./asmeta.png",
+  "repository": {"url": "https://github.com/Kr1bas/asmetaCode.git"},
+  "main": "./out/extension.js",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"lint": "eslint \"src/**/*.ts\"",
+		"watch": "tsc -watch -p ./"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "asmeta",
+        "aliases": [
+          "asmeta",
+          "asmeta"
+        ],
+        "extensions": [
+          ".asm"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "asmeta",
+        "scopeName": "source.asm",
+        "path": "./syntaxes/asmeta.tmLanguage.json"
+      }
+    ],
+    "taskDefinitions": [
+      {
+        "type": "asmeta",
+        "required": [
+          "asm"
+        ],
+        "properties": {
+          "asm": {
+            "type": "string",
+            "description": "The path to the .asm file to execute"
+          }
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "asmetaS.run",
+        "title": "Run Simulator",
+        "icon":{
+          "light":"./icons/play-fill.svg",
+          "dark": "./icons/play.svg"
+        }
+      },
+      {
+        "command": "asmetaLc.run",
+        "title": "Run parser",
+        "icon":{
+          "dark": "./icons/check-lg.svg",
+          "light": "./icons/check-lg.svg"
+        }
+      },
+      {
+        "command": "asmetaSMV.run",
+        "title": "Run Model Checker",
+        "icon":{
+          "dark": "./icons/file-earmark-break-fill.svg",
+          "light": "./icons/file-earmark-break.svg"
+        }
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceLangId == asmeta",
+          "command": "asmetaS.run",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == asmeta",
+          "command": "asmetaLc.run",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == asmeta",
+          "command": "asmetaSMV.run",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "configurationDefaults": {
+    "[languageId]": {
+      "editor.semanticHighlighting.enabled": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^16.18.34",
+		"@types/vscode": "^1.73.0",
+		"@typescript-eslint/eslint-plugin": "^6.7.0",
+		"@typescript-eslint/parser": "^6.7.0",
+		"eslint": "^8.26.0",
+		"typescript": "^5.2.2"
+  }
+}
