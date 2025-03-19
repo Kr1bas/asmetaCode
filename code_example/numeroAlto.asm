@@ -1,7 +1,7 @@
 asm numeroAlto
 
 import ./StandardLibrary
-import ./CTLlibrary
+import ./CTLLibrary
 
 signature:
 	// DOMAINS
@@ -23,7 +23,7 @@ signature:
 definitions:
 	// DOMAIN DEFINITIONS
 	domain Values = {1 : 5}
-	domain BalanceDomain = {0:10}
+	domain BalanceDomain = {0:11}
 	// FUNCTION DEFINITIONS
 	function finalWinner = 
 		if balance(user) = 0 then
@@ -85,7 +85,10 @@ definitions:
 		if not(endOfGame) then
 			r_Play[]
 		else
-			winner := finalWinner
+            par
+                winner := finalWinner
+                balance(user) := balance(user) + 1
+            endpar
 		endif
 
 // INITIAL STATE
